@@ -14,6 +14,9 @@ export default function App() {
   };
 
   const addButtonHandler = (inputGoal) => {
+    if (inputGoal.length === 0) {
+      return;
+    }
     setGoalsList((currentGoals) => [
       ...currentGoals,
       {

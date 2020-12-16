@@ -11,10 +11,11 @@ const GoalInput = ({ addButtonHandler, visible, onCancel }) => {
   const addGoalHandler = () => {
     addButtonHandler(entertedGoal);
     setEnteredGoal("");
+    onCancel();
   };
 
   return (
-    <Modal visible={visible} animationType='slide'>
+    <Modal visible={visible} animationType='fade'>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
