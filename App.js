@@ -6,6 +6,12 @@ import GoalItem from "./components/GoalItem";
 export default function App() {
   const [goalsList, setGoalsList] = useState([]);
 
+  const removeGoalHandler = (goalId) => {
+    setGoalsList((currentGoals) => {
+      return currentGoals.filter((goal) => goal.id !== goalId);
+    });
+  };
+
   const addButtonHandler = (inputGoal) => {
     setGoalsList((currentGoals) => [
       ...currentGoals,
@@ -23,7 +29,11 @@ export default function App() {
         keyExtractor={(item) => item.id}
         data={goalsList}
         renderItem={(itemData) => (
-          <GoalItem id={itemData.item.id} title={itemData.item.value} />
+          <GoalItem
+            id={itemData.item.id}
+            title={itemData.item.value}
+            removeGoalHandler={removeGoalHandler}
+          />
         )}
       />
     </View>
