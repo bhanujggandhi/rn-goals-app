@@ -1,53 +1,29 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Button,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 import GoalInput from "./components/GoalInput";
+import GoalItem from "./components/GoalItem";
 
 export default function App() {
-  const [goalsInput, setGoalsInput] = useState("");
   const [goalsList, setGoalsList] = useState([]);
 
-  const changeTextHandler = (inputText) => {
-    setGoalsInput(inputText);
-  };
-
-  const addButtonHandler = () => {
+  const addButtonHandler = (inputGoal) => {
     setGoalsList((currentGoals) => [
       ...currentGoals,
       {
         id: Math.random().toString(),
-        value: goalsInput,
+        value: inputGoal,
       },
     ]);
-    setGoalsInput("");
   };
 
   return (
     <View style={styles.screen}>
-      <GoalInput
-        textHandler={changeTextHandler}
-        addButtonHandler={addButtonHandler}
-        goalsInput={goalsInput}
-      />
+      <GoalInput addButtonHandler={addButtonHandler} />
       <FlatList
         keyExtractor={(item) => item.id}
         data={goalsList}
         renderItem={(itemData) => (
-          <TouchableOpacity
-            style={styles.listItem}
-            onPress={() => {
-              console.log("press");
-            }}
-          >
-            <Text>{itemData.item.value}</Text>
-          </TouchableOpacity>
+          <GoalItem id={itemData.item.id} title={itemData.item.value} />
         )}
       />
     </View>
